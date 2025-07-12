@@ -17,7 +17,7 @@ Examples/Monocular-Inertial/mono_inertial_tum_vi
 
 Examples/Stereo-Inertial/stereo_inertial_euroc
 Examples/Stereo-Inertial/stereo_inertial_tum_vi
-
+vocabulary/
 Examples/ROS/ORB_SLAM3/Mono
 Examples/ROS/ORB_SLAM3/Mono_Inertial
 Examples/ROS/ORB_SLAM3/MonoAR
