@@ -65,6 +65,7 @@ Thirdparty/g2o/build/
 Thirdparty/g2o/config.h
 Thirdparty/g2o/lib/
 Vocabulary/SuperPointVoc.dbow3
+Vocabulary/voc_binary_tartan_8u_6
 
 build/
 
