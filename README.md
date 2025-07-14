@@ -1,102 +1,82 @@
-https://drive.google.com/file/d/1vjqp6577veY60MKcoe6mmJyfWfJj32gY/view?usp=sharing
+# semantic_sporbslam3
 
+A lightweight, deep-learning-powered **visual SLAM** system that runs in real time on modern GPUs. Forked from **Rover-SLAM** and enhanced with semantic key‑points and ROS 2 support.
 
+## Quick Features
 
-# A real-time, robust and versatile visual-SLAM framework based on deep learning networks
+- Real‑time monocular, stereo and inertial SLAM  
+- SuperPoint + ORB front‑end  
+- Loop‑closure & relocalisation  
+- ROS 1 / ROS 2 wrappers  
+- Tested on EuRoC, TUM VI and OpenLoris datasets  
 
-# Prerequisites
-We have tested the library in **Ubuntu 20.04**, with the following hardware and software configurations:
+---
 
-- **CPU**: Intel Core i7-10700K
-- **GPU**: NVIDIA GeForce RTX 3080
-- **CUDA Version**: 11.8
+## Tested Setup
 
+|            |                         |
+|------------|-------------------------|
+| **OS**     | Ubuntu 20.04 / 22.04    |
+| **CPU**    | Intel Core i9‑11900K    |
+| **GPU**    | NVIDIA GeForce RTX 3080 |
+| **CUDA**   | 11.8                    |
 
+*(Other hardware / software versions may also work.)*
 
-## Pangolin
-We use [Pangolin](https://github.com/stevenlovegrove/Pangolin) for visualization and user interface. Dowload and install instructions can be found at: https://github.com/stevenlovegrove/Pangolin.
+### Dependencies
 
-## OpenCV
-**Required at leat 3.0. Tested with OpenCV 3.4.1**.
+| Library         | ≥ Version | Notes / Install tip                                           |
+|-----------------|-----------|---------------------------------------------------------------|
+| Pangolin        | –         | Viewer & UI                                                   |
+| OpenCV          | 4.2       | `sudo apt install libopencv-dev`                              |
+| Eigen           | 3.1       | Header‑only                                                   |
+| ONNXRuntime     | 1.16.3    | Edit `CMakeLists.txt:63` with your ONNX path                  |
+| ROS 2 (optional)| Humble / Iron | Live camera & bagfile demos                              |
 
-## Eigen3
-Required by g2o (see below). Download and install instructions can be found at: http://eigen.tuxfamily.org. **Required at least 3.1.0**.
+---
 
-## ONNXRuntime
-**Required onnxruntime-linux-x64-gpu-1.16.3** and Modify line 63 of the CmakeLists.txt to the current location of ONNXRuntime library.
+## Build
 
-
-## ROS (optional)
-
-We provide some examples to process input of a monocular, monocular-inertial, stereo, stereo-inertial or RGB-D camera using ROS. Building these examples is optional. These have been tested with ROS Melodic under Ubuntu 18.04.
-
-
-
-## Download Examples Folder
-Download ["Examples" ](https://pan.baidu.com/s/1dd6k_Gf8mEjbiyli31_Yeg?pwd=p5y8) and unzip in ROVER-SLAM/ .
-
-## Download Dbow File
-Download ["voc_binary_tartan_8u_6.zip"](https://pan.baidu.com/s/1dd6k_Gf8mEjbiyli31_Yeg?pwd=p5y8), and unzip in ROVER-SLAM/Vocabulary/ .
-
-# Building Rover-SLAM library and examples
-
-Clone the repository:
-```
-git clone https://github.com/zzzzxxxx111/Rover-SLAM.git
-```
-
-
-```
-cd Rover-slam
-mkdir build
-cd build
+```bash
+git clone https://github.com/anastaga/semantic_sporbslam3.git
+cd semantic_sporbslam3
+mkdir build && cd build
 cmake ..
-make -j12
+make -j$(nproc)
 ```
 
+---
 
-# Running 
+## Quick Start (Monocular / EuRoC V1_01)
 
-## Euroc-Monocluar:
-```
-./Examples/Monocular/mono_euroc  Vocabulary/voc_binary_tartan_8u_6.yml.gz Examples/Monocular/EuRoC.yaml /media/xiao/data3/slamdataset/euroc/V202 /media/xiao/data3/learning-slam/Rover-slam/Examples/Monocular/EuRoC_TimeStamps/V202.txt
-```
-
-## Euroc-Monocluar-Inerial:
-
-```
-./Examples/Monocular-Inertial/mono_inertial_euroc  Vocabulary/voc_binary_tartan_8u_6.yml.gz Examples/Monocular-Inertial/EuRoC.yaml /media/xiao/data3/slamdataset/euroc/V203 media/xiao/data3/learning-slam/Rover-slam/Examples/Monocular-Inertial/EuRoC_TimeStamps/V203.txt
+```bash
+cd ~/Workspaces/PhD_ws/src/SLAM_Methods/semantic_sporbslam3
+./Examples/Monocular/mono_euroc     Vocabulary/SuperPointVoc.dbow3     Examples/Monocular/OpenLoris.yaml     ~/Workspaces/Datasets/office1-1/color/     ~/Workspaces/Datasets/office1-1/color_clean.txt
 ```
 
+Arguments: **vocabulary file**, **camera config**, **image folder**, **timestamp file**.
 
+More launch scripts live under `Examples/*`.
 
-## TUM-Monocular-Inertial
+### ROS 2 Wrapper
 
-```
-./Examples/Monocular-Inertial/mono_inertial_tum_vi Vocabulary/voc_binary_tartan_8u_6.yml.gz Examples/Monocular-Inertial/TUM_512.yaml /media/xiao/data3/slamdataset/dataset-corridor3_512_16/mav0/cam0/data Examples/Monocular-Inertial/TUM_TimeStamps/dataset-corridor3_512.txt Examples/Monocular-Inertial/TUM_IMU/dataset-corridor3_512.txt dataset-corridor3_512_monoi
-```
-## Euroc-Stereo-Inertial
+Live demos & bag playback: **ros2_semantic_sporbslam3** → <https://github.com/anastaga/ros2_semantic_sporbslam3>
 
-```
- ./Examples/Stereo-Inertial/stereo_inertial_euroc /media/xiao/data3/learning-slam/ORB_SLAM3_detailed_comments/Vocabulary/voc_binary_tartan_8u_6.yml.gz Examples/Stereo-Inertial/EuRoC.yaml /media/xiao/data3/slamdataset/euroc/V203 /media/xiao/data3/learning-slam/ORB_SLAM3_detailed_comments/Examples/Stereo/EuRoC_TimeStamps/V203.txt V203_si
-```      
-The rest of the operations are the same as ORB-SLAM3
+---
 
+## Acknowledgments
 
+This project stands on the shoulders of giants. Huge thanks to:
 
-# Acknowledgments
+1. **Rover‑SLAM**  
+2. ORB‑SLAM3  
+3. AIRVO  
+4. SP‑Loop  
+5. ORB_SLAM3_detailed_comments  
+6. SuperPoint_SLAM  
 
-The completion of this project would not have been possible without the support and contributions of the following open-source projects and tools. We extend our sincere gratitude to:
+---
 
-1. **ORB-SLAM3**  
-   
+## License
 
-2. **AIRVO**  
-  
-
-3. **SP-Loop**  
-
-4. **ORB_SLAM3_detailed_comments**  
-
-5. **SuperPoint_SLAM**
-
+semantic_sporbslam3 is released under the MIT License. See the [LICENSE](LICENSE) file for details.
