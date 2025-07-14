@@ -1,14 +1,16 @@
 # semantic_sporbslam3
 
-A lightweight, deep-learning-powered **visual SLAM** system that runs in real time on modern GPUs. Forked from **Rover-SLAM** and enhanced with semantic key‑points and ROS 2 support.
+A lightweight, deep-learning-powered **visual SLAM** system that runs in real time on modern GPUs. Forked from **Rover-SLAM** and enhanced with semantic key‑points and ROS 2 support.
+
+> This system replaces ORB features with SuperPoint and LightGlue, and uses a YOLOv8 object detector (via ONNX Runtime) to filter dynamic and semi-dynamic objects in real time to enable better navigation and long slam. It supports full ROS 2 integration and builds semantically filtered maps of dynamic indoor environments.
 
 ## Quick Features
 
-- Real‑time monocular, stereo and inertial SLAM  
-- SuperPoint + ORB front‑end  
-- Loop‑closure & relocalisation  
-- ROS 1 / ROS 2 wrappers  
-- Tested on EuRoC, TUM VI and OpenLoris datasets  
+- Real‑time monocular and inertial SLAM  
+- SuperPoint + ORB front‑end  
+- Loop‑closure & relocalization  
+- ROS 2 wrappers  
+- Tested on EuRoC, TUM VI and OpenLoris datasets  
 
 ---
 
