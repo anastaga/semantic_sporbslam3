@@ -229,7 +229,7 @@ protected:
     bool mbFixScale;
 
 
-    bool mnFullBAIdx;
+int mnFullBAIdx = 0;  // or size_t if it's an index
 
 
 
