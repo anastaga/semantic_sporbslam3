@@ -248,7 +248,7 @@ public:
    * @param filename
    */
   void save(const std::string &filename, bool binary_compressed=true) const;
-   void load_fromtxt(const std::string &filename)throw(std::runtime_error);
+   void load_fromtxt(const std::string &filename);
   /**
    * Loads the vocabulary from a file created with save
    * @param filename.
@@ -299,8 +299,8 @@ public:
    */
   int getDescritorType()const;
   //io to-from a stream
-  void toStream(  std::ostream &str, bool compressed=true) const throw(std::exception);
-  void fromStream(  std::istream &str )   throw(std::exception);
+  void toStream(  std::ostream &str, bool compressed=true) const;
+  void fromStream(  std::istream &str ) ;
 
  protected:
 
